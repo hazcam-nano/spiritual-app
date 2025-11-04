@@ -4,26 +4,18 @@ const { verifyCaptcha } = require("../utils/verifyCaptcha");
 const { sendEmail } = require("../utils/sendEmail");
 const { createPDFReport } = require("../utils/generatePdf");
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-// ✅ CORS headers
-function setCorsHeaders(res) {
+module.exports = async (req, res) => {
+  // ✅ Set CORS headers early — applies to ALL paths and errors
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-}
 
-module.exports = async (req, res) => {
-  setCorsHeaders(res);
-
+  // ✅ Handle preflight request
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
+  // ✅ Handle only POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -32,7 +24,7 @@ module.exports = async (req, res) => {
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      console.error("Form parse error:", err);
+      console.error("Form error:", err);
       return res.status(500).json({ error: "Form parsing failed" });
     }
 
@@ -49,37 +41,49 @@ module.exports = async (req, res) => {
       birthtime,
       birthcity,
       birthstate,
-      birthcountry
+      birthcountry,
     } = fields;
 
-    const astrologySummary = "🌟 Astrological traits based on birth info.";
-    const numerologySummary = "🔢 Life Path Number 3 – creative, expressive.";
-    const palmSummary = "🖐️ Fate and heart lines suggest strong relationships.";
+    const astrologySummary = "🌞 Sun in Virgo, deep thinker and planner.";
+    const numerologySummary = "🔢 Life Path 9 – humanitarian, old soul.";
+    const palmSummary = "✋ Long heart line, steady fate line – emotional depth and career focus.";
 
-    const pdfBuffer = await createPDFReport({
-      name,
-      email,
-      birthdate,
-      birthtime,
-      birthcity,
-      birthstate,
-      birthcountry,
-      astrologySummary,
-      numerologySummary,
-      palmSummary
-    });
+    try {
+      const pdfBuffer = await createPDFReport({
+        name,
+        email,
+        birthdate,
+        birthtime,
+        birthcity,
+        birthstate,
+        birthcountry,
+        astrologySummary,
+        numerologySummary,
+        palmSummary,
+      });
 
-    await sendEmail(
-      email,
-      "Your Spiritual Report",
-      "Attached is your personal spiritual report.",
-      pdfBuffer
-    );
+      await sendEmail(
+        email,
+        "🧘 Your Spiritual Report",
+        "Attached is your full spiritual reading.",
+        pdfBuffer
+      );
 
-    return res.status(200).json({
-      astrologySummary,
-      numerologySummary,
-      palmSummary
-    });
+      return res.status(200).json({
+        astrologySummary,
+        numerologySummary,
+        palmSummary,
+      });
+    } catch (error) {
+      console.error("Internal error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
   });
+};
+
+// Vercel config
+module.exports.config = {
+  api: {
+    bodyParser: false,
+  },
 };
