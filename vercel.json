@@ -1,1 +1,10 @@
+{
+  "version": 2,
+  "functions": {
+    "api/spiritual-report.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
+}
 
