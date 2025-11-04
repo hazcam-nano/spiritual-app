@@ -7,9 +7,9 @@
     "start": "vercel start"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "formidable": "^3.5.0",
-    "nodemailer": "^6.9.1",
-    "pdfkit": "^0.13.0",
-    "node-fetch": "^2.6.11"
+    "openai": "^4.0.0",
+    "pdfkit": "^0.13.0"
   }
 }
