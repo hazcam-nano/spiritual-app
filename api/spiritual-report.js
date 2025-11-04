@@ -48,10 +48,17 @@ export const config = {
 export default async function handler(req, res) {
   setCORS(req, res);
 
-  if (req.method === "OPTIONS") return res.status(204).end();
-  if (req.method === "GET") return ok(req, res, { ok: true, message: "Spiritual Report API is online" });
-  if (req.method !== "POST") return bad(req, res, 405, "Method not allowed");
+  if (req.method === "OPTIONS") {
+    return res.status(204).end(); // Preflight CORS
+  }
 
+  if (req.method === "GET") {
+    return ok(req, res, { ok: true, message: "API is online" });
+  }
+
+  if (req.method !== "POST") {
+    return bad(req, res, 405, "Method not allowed");
+  }
   const form = formidable({ multiples: false, keepExtensions: true });
 
   try {
