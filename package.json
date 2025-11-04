@@ -1,6 +1,5 @@
 {
   "name": "spiritual-app",
-  "type": "module",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "formidable": "^3.4.0",
