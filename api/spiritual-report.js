@@ -1,8 +1,8 @@
 import formidable from "formidable";
 import fs from "fs/promises";
-import { createPDFReport } from "./utils/generatePdf.js";
-import { sendEmail } from "./utils/sendEmail.js";
 import { verifyCaptcha } from "./utils/verifyCaptcha.js";
+import { sendEmail } from "./utils/sendEmail.js";
+import { createPDFReport } from "./utils/generatePdf.js";
 
 export const config = { api: { bodyParser: false } };
 
@@ -17,14 +17,24 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: "hCaptcha verification failed" });
     }
 
-    const { email, name, birthdate, birthtime, birthcity, birthstate, birthcountry } = fields;
+    const {
+      email,
+      name,
+      birthdate,
+      birthtime,
+      birthcity,
+      birthstate,
+      birthcountry
+    } = fields;
+
     const palmImage = files.palmImage;
 
-    // Generate summaries (stubbed logic)
-    const astrologySummary = `🪐 Sun in Scorpio, Moon in Pisces — Emotional, deep thinker.`;
-    const numerologySummary = `🔢 Life Path: 7 — Seeker, philosopher. Soul Urge: 5 — Freedom-lover.`;
-    const palmSummary = `✋ Long fate line, deep heart line — indicates emotional depth, travel lines visible.`;
+    // TEMP summaries — replace with real logic if needed
+    const astrologySummary = `Sun in Leo, rising in Gemini. Dynamic communicator, with leadership potential.`;
+    const numerologySummary = `Life Path 3 – Creative, expressive, social. Soul Urge 5 – Adventure and change.`;
+    const palmSummary = `Well-defined heart line, travel lines near wrist, 2 children lines visible near Mercury mount.`;
 
+    // Create PDF
     const pdfBuffer = await createPDFReport({
       name,
       email,
@@ -38,8 +48,10 @@ export default async function handler(req, res) {
       palmSummary
     });
 
-    await sendEmail(email, "🔮 Your Full Spiritual Report", "See attached PDF for detailed analysis.", pdfBuffer);
+    // Send email with attachment
+    await sendEmail(email, "🔮 Your Full Spiritual Report", "Please find your detailed spiritual report attached.", pdfBuffer);
 
+    // Return short summaries to display in Shopify
     return res.status(200).json({
       astrologySummary,
       numerologySummary,
