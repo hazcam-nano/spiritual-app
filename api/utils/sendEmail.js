@@ -1,3 +1,4 @@
+// api/utils/sendEmail.js
 import sg from "@sendgrid/mail";
 
 sg.setApiKey(process.env.SENDGRID_API_KEY);
@@ -8,7 +9,7 @@ sg.setApiKey(process.env.SENDGRID_API_KEY);
 export async function sendEmailWithAttachment({ to, subject, html, buffer, filename = "report.pdf" }) {
   const msg = {
     to,
-    from: process.env.SENDGRID_FROM_EMAIL || "no-reply@yourdomain.com", // make sure this is verified in SendGrid
+    from: process.env.SENDGRID_FROM_EMAIL || "no-reply@yourdomain.com",
     subject,
     html,
     attachments: [
