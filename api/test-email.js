@@ -1,4 +1,6 @@
 // File: /api/test-email.js
+// File: /api/test-email.js
+// File: /api/test-email.js
 
 import sgMail from '@sendgrid/mail';
 
