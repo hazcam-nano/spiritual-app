@@ -1,6 +1,4 @@
 // api/spiritual-report.js
-// File: /api/test-email.js
-// File: /api/test-email.js
 
 import getStream from "get-stream";
 import sg from "@sendgrid/mail";
