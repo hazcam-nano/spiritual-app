@@ -1,4 +1,10 @@
 // api/utils/sendEmail.js
+// api/utils/sendEmail.js
+// api/utils/sendEmail.js
+// api/utils/sendEmail.js
+// api/utils/sendEmail.js
+// api/utils/sendEmail.js
+
 import sg from "@sendgrid/mail";
 
 sg.setApiKey(process.env.SENDGRID_API_KEY);
