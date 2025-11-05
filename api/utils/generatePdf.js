@@ -1,9 +1,9 @@
 import PDFDocument from 'pdfkit';
-import getStream from 'get-stream'; // This assumes you've already installed it
+import getStream from 'get-stream'; // Make sure this is added in package.json
 
 export async function generatePdfBuffer({ fullName, birthdate, birthTime, birthPlace, reading }) {
   const doc = new PDFDocument();
-  
+
   doc.fontSize(18).text("🧘 Spiritual Report", { align: "center" });
   doc.moveDown();
 
@@ -12,16 +12,16 @@ export async function generatePdfBuffer({ fullName, birthdate, birthTime, birthP
   doc.text(`Birth Time: ${birthTime || "Not provided"}`);
   doc.text(`Birth Place: ${birthPlace || "Not provided"}`);
   doc.moveDown();
-  doc.text("🌀 Insights:", { underline: true });
+
+  doc.fontSize(14).text("🔮 Insights", { underline: true });
   doc.moveDown();
 
-  doc.text(reading || "No insights provided", {
-    lineGap: 4
+  doc.fontSize(12).text(reading || "No reading generated", {
+    lineGap: 6
   });
 
   doc.end();
 
-  // Convert PDF stream to buffer using get-stream
   const buffer = await getStream.buffer(doc);
   return buffer;
 }
