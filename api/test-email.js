@@ -1,6 +1,7 @@
 // /api/test-email.js
 
-import sgMail from '@sendgrid/mail';
+import sg from "@sendgrid/mail";
+sg.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Ensure key is set
 if (!process.env.SENDGRID_API_KEY) {
