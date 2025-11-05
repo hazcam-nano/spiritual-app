@@ -1,5 +1,6 @@
 import PDFDocument from 'pdfkit';
 import getStream from 'get-stream'; // Make sure this is added in package.json
+import { generatePdfBuffer } from './utils/generatePdf.js';
 
 export async function generatePdfBuffer({ fullName, birthdate, birthTime, birthPlace, reading }) {
   const doc = new PDFDocument();
