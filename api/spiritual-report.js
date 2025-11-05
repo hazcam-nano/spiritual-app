@@ -1,6 +1,4 @@
 // api/spiritual-report.js
-// api/spiritual-report.js
-// api/spiritual-report.js
 
 import getStream from "get-stream";
 import sg from "@sendgrid/mail";
@@ -12,8 +10,6 @@ import path from "path";
 import { verifyCaptcha } from "./utils/verifyCaptcha.js";
 import { generatePdfBuffer } from "./utils/generatePdf.js";
 import { sendEmailWithAttachment } from "./utils/sendEmail.js";
-
-const getStream = require("get-stream");
 
 // --- Logging ---
 
