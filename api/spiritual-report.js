@@ -11,6 +11,8 @@ import { verifyCaptcha } from "./utils/verifyCaptcha.js";
 import { generatePdfBuffer } from "./utils/generatePdf.js";
 import { sendEmailWithAttachment } from "./utils/sendEmail.js";
 
+const getStream = require("get-stream");
+
 // --- Logging ---
 
 console.log("spiritual-report.js function hit:", req.method);
