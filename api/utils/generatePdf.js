@@ -1,7 +1,16 @@
 import PDFDocument from 'pdfkit';
-import getStream from 'get-stream'; // Make sure this is added in package.json
-import { generatePdfBuffer } from './utils/generatePdf.js';
+import getStream from 'get-stream'; // Must be listed in package.json
 
+/**
+ * Generate a PDF Buffer containing spiritual report details.
+ * @param {Object} data
+ * @param {string} data.fullName
+ * @param {string} data.birthdate
+ * @param {string} data.birthTime
+ * @param {string} data.birthPlace
+ * @param {string} data.reading - AI-generated spiritual report
+ * @returns {Promise<Buffer>}
+ */
 export async function generatePdfBuffer({ fullName, birthdate, birthTime, birthPlace, reading }) {
   const doc = new PDFDocument();
 
